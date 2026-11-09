@@ -13,7 +13,8 @@ linux-automation-toolkit/
 ├── log_cleanup.sh    # Automated log rotation and cleanup utility
 └── health_check.sh   # System resource monitoring with Postfix email alerts
 
-⚙️ Included Scripts & Features
+## ⚙️ Included Scripts & Features
+
 1. health_check.sh
 Purpose: Monitors system health metrics (CPU utilization, available memory, disk space usage, and crucial services).
 
@@ -30,7 +31,7 @@ Purpose: Prevents disk space exhaustion by cleaning up stale logs or archiving o
 4. setup.sh
 Purpose: Automates environment provisioning, package installations, and permission configurations for new Linux servers or local development environments.
 
-🚀 Getting Started & Usage
+## 🚀 Getting Started & Usage
 Make sure the scripts have executable permissions before running them on your Linux environment:
 
 Bash
