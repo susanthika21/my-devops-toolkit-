@@ -1,6 +1,6 @@
 # 🐧 Linux Automation Toolkit
 
-A collection of production-ready Bash scripting utilities designed for Linux system administration, automated backups, log management, and system health monitoring.
+> A collection of production-ready Bash scripting utilities designed for Linux system administration, automated backups, log management, and system health monitoring.
 
 ---
 
