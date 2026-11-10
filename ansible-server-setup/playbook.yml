@@ -1,0 +1,29 @@
+---
+- name: Automated Linux Server Baseline Setup
+  hosts: servers
+  become: yes  # Elevate privileges to root (sudo)
+
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install essential utility tools
+      apt:
+        name:
+          - git
+          - curl
+          - wget
+          - htop
+          - vim
+          - ufw
+        state: present
+
+    - name: Create a custom deployment directory
+      file:
+        path: /opt/app
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
