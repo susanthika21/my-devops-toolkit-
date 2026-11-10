@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t flask-app:latest ~/devops/jenkins-docker-demo'
+                // Build from the folder inside the workspace
+                sh 'docker build -t flask-app:latest ./jenkins-docker-demo'
             }
         }
         stage('Run Container') {
