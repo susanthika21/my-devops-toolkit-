@@ -11,28 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout repository code
       - name: Checkout Repository
         uses: actions/checkout@v4
+
       # 2. Set up Python environment
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
+      # 3. Run Tests
       - name: Run Tests
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt || echo "No requirements.txt found, skipping dependency install"
 
+      # 4. Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # 5. Log in to Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # 6. Extract Docker Metadata
       - name: Extract Docker Metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -42,6 +48,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
             type=sha,format=short
 
+      # 7. Build and Push Docker Image
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
