@@ -22,15 +22,15 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: ./ci-cd-local-deploy
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/my-python-app:ci-cd-latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/my-python-app:ci-cd-latest
 
   deploy:
     needs: build-and-push
@@ -38,8 +38,8 @@ jobs:
     steps:
       - name: Pull image and deploy container locally
         run: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/my-python-app:ci-cd-latest
+          docker pull ${{ secrets.DOCKER_USERNAME }}/my-python-app:ci-cd-latest
           docker stop flask-cicd-demo || true
           docker rm flask-cicd-demo || true
-          docker run -d --name flask-cicd-demo -p 8080:5000 --restart unless-stopped ${{ secrets.DOCKERHUB_USERNAME }}/my-python-app:ci-cd-latest
+          docker run -d --name flask-cicd-demo -p 8080:5000 --restart unless-stopped ${{ secrets.DOCKER_USERNAME }}/my-python-app:ci-cd-latest
           docker image prune -f
